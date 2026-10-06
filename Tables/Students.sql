@@ -1,0 +1,28 @@
+CREATE TABLE [dbo].[Students]
+(
+    [Id]                    INT            IDENTITY (1, 1) NOT NULL,
+    [AdmissionNumber]       NVARCHAR (30)  NOT NULL,
+    [FirstName]             NVARCHAR (100) NOT NULL,
+    [LastName]              NVARCHAR (100) NULL,
+    [Gender]                NVARCHAR (10)  NULL,
+    [DateOfBirth]           DATE           NULL,
+    [ClassId]               INT            NULL,
+    [SectionId]             INT            NULL,
+    [RollNumber]            NVARCHAR (20)  NULL,
+    [PhotoUrl]              NVARCHAR (500) NULL,
+    [Address]               NVARCHAR (500) NULL,
+    [GuardianName]          NVARCHAR (150) NULL,
+    [GuardianPhone]         NVARCHAR (20)  NULL,
+    [PreviousSchoolName]    NVARCHAR (200) NULL,
+    [PreviousSchoolDetails] NVARCHAR (MAX) NULL,
+    [UsesBusService]        BIT            NOT NULL CONSTRAINT [DF_Students_UsesBus] DEFAULT (0),
+    [BusRouteId]            INT            NULL,
+    [AdmissionDate]         DATE           NULL,
+    [IsActive]              BIT            NOT NULL CONSTRAINT [DF_Students_IsActive] DEFAULT (1),
+    [CreatedAt]             DATETIME2 (0)  NOT NULL CONSTRAINT [DF_Students_CreatedAt] DEFAULT (SYSUTCDATETIME()),
+    CONSTRAINT [PK_Students] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_Students_Admission] UNIQUE NONCLUSTERED ([AdmissionNumber] ASC),
+    CONSTRAINT [FK_Students_Classes] FOREIGN KEY ([ClassId]) REFERENCES [dbo].[Classes] ([Id]),
+    CONSTRAINT [FK_Students_Sections] FOREIGN KEY ([SectionId]) REFERENCES [dbo].[Sections] ([Id]),
+    CONSTRAINT [FK_Students_BusRoutes] FOREIGN KEY ([BusRouteId]) REFERENCES [dbo].[BusRoutes] ([Id])
+);
