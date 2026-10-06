@@ -8,6 +8,7 @@ CREATE PROCEDURE [dbo].[usp_Student_Insert]
     @SectionId             INT            = NULL,
     @RollNumber            NVARCHAR (20)  = NULL,
     @Address               NVARCHAR (500) = NULL,
+    @Email                 NVARCHAR (256) = NULL,
     @GuardianName          NVARCHAR (150) = NULL,
     @GuardianPhone         NVARCHAR (20)  = NULL,
     @PreviousSchoolName    NVARCHAR (200) = NULL,
@@ -23,11 +24,11 @@ BEGIN
 
     INSERT INTO [dbo].[Students]
         ([AdmissionNumber], [FirstName], [LastName], [Gender], [DateOfBirth], [ClassId], [SectionId],
-         [RollNumber], [Address], [GuardianName], [GuardianPhone], [PreviousSchoolName],
+         [RollNumber], [Address], [Email], [GuardianName], [GuardianPhone], [PreviousSchoolName],
          [PreviousSchoolDetails], [UsesBusService], [BusRouteId], [AdmissionDate], [PhotoUrl])
     VALUES
         (@AdmissionNumber, @FirstName, @LastName, @Gender, @DateOfBirth, @ClassId, @SectionId,
-         @RollNumber, @Address, @GuardianName, @GuardianPhone, @PreviousSchoolName,
+         @RollNumber, @Address, @Email, @GuardianName, @GuardianPhone, @PreviousSchoolName,
          @PreviousSchoolDetails, @UsesBusService, @BusRouteId, @AdmissionDate, @PhotoUrl);
 
     SET @NewId = CAST(SCOPE_IDENTITY() AS INT);

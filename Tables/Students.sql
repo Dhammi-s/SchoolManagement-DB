@@ -11,6 +11,7 @@ CREATE TABLE [dbo].[Students]
     [RollNumber]            NVARCHAR (20)  NULL,
     [PhotoUrl]              NVARCHAR (500) NULL,
     [Address]               NVARCHAR (500) NULL,
+    [Email]                 NVARCHAR (256) NULL,
     [GuardianName]          NVARCHAR (150) NULL,
     [GuardianPhone]         NVARCHAR (20)  NULL,
     [PreviousSchoolName]    NVARCHAR (200) NULL,

@@ -16,6 +16,7 @@ BEGIN
             sec.[Name] AS SectionName,
             s.[RollNumber],
             s.[Address],
+            s.[Email],
             s.[GuardianName],
             s.[GuardianPhone],
             s.[PreviousSchoolName],
