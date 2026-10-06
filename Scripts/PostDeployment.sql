@@ -28,6 +28,22 @@ WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Name], [Description]) VALUES (source.[Name], source.[Description]);
 
 -------------------------------------------------------------------------------
+-- Common subjects
+-------------------------------------------------------------------------------
+MERGE INTO [dbo].[Subjects] AS target
+USING (VALUES
+    (N'English',    N'ENG'),
+    (N'Mathematics',N'MATH'),
+    (N'Science',    N'SCI'),
+    (N'Social Studies', N'SST'),
+    (N'Computer Science', N'CS'),
+    (N'Physical Education', N'PE')
+) AS source ([Name], [Code])
+    ON target.[Name] = source.[Name]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Name], [Code]) VALUES (source.[Name], source.[Code]);
+
+-------------------------------------------------------------------------------
 -- Default school settings (single row, Id = 1)
 -------------------------------------------------------------------------------
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SchoolSettings] WHERE [Id] = 1)

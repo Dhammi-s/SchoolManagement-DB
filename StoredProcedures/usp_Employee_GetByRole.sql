@@ -21,12 +21,9 @@ BEGIN
             e.[PhotoUrl],
             e.[IsActive],
             -- Classes this employee is incharge of (comma-separated), if any
-            STUFF((
-                SELECT N', ' + c.[Name]
-                FROM [dbo].[Classes] c
-                WHERE c.[ClassInchargeEmployeeId] = e.[Id]
-                ORDER BY c.[Name]
-                FOR XML PATH(N''), TYPE).value(N'.', N'nvarchar(max)'), 1, 2, N'') AS InchargeClasses
+            (SELECT STRING_AGG(c.[Name], N', ')
+             FROM [dbo].[Classes] c
+             WHERE c.[ClassInchargeEmployeeId] = e.[Id]) AS InchargeClasses
     FROM    [dbo].[Employees] e
     INNER JOIN [dbo].[Roles] r ON r.[Id] = e.[RoleId]
     WHERE   (@RoleName IS NULL OR r.[Name] = @RoleName)
